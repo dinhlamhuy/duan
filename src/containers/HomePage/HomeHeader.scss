@@ -1,0 +1,260 @@
+.home-header-container {
+    font            : 14px/1.5 'Montserrat', sans-serif;
+    height          : 80px;
+    border-bottom   : 1px solid #f5f5f5;
+    width           : 100%;
+    padding         : 0 90px;
+    position        : sticky;
+    top             : 0;
+    z-index         : 100;
+    background-color: white;
+
+
+
+    .home-header-content {
+        font   : 14px/1.5 'Montserrat', sans-serif;
+        width  : 100%;
+        display: flex;
+        height : 100%;
+
+        .left-content {
+            width         : 25%;
+            // border     : 1px solid rgb(11, 9, 93);
+            display       : flex;
+            align-items   : center;
+
+            .fa-bars {
+                font-size: 25px !important;
+                color    : gray;
+                cursor   : pointer;
+            }
+
+            .header-logo {
+                background : url('../../assets/logo.svg') center center no-repeat;
+                height     : 100%;
+                width      : 50%;
+                cursor     : pointer;
+                margin-left: 12px;
+            }
+        }
+
+        .center-content {
+            width             : 50%;
+            // border         : 1px solid rgb(255, 157, 0);
+            display           : flex;
+            align-items       : center;
+            justify-content   : space-between;
+
+            .child-content {
+                text-align: center;
+
+                .subs-title {
+                    font-size  : 12px;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .right-content {
+            width             : 25%;
+            // border         : 1px solid rgb(0, 255, 119);
+            display           : flex;
+            align-items       : center;
+            justify-content   : center;
+            gap               : 15px;
+
+            .support {
+                margin     : 20px;
+                font-size  : 16px;
+                color      : rgb(84, 84, 170);
+                font-weight: 500;
+                cursor     : pointer;
+
+            }
+
+            .language-vi {
+
+                margin   : 0;
+                cursor   : pointer;
+                // color : transparent;
+
+                &.active {
+                    padding         : 5px;
+                    border-radius   : 50%;
+                    background-color: rgb(98, 155, 107);
+
+                }
+
+                img {
+                    height       : 30px;
+                    width        : 30px;
+                    border-radius: 50%;
+
+                }
+            }
+
+            .language-en {
+
+                // background-color: red;
+                cursor: pointer;
+                margin: 0;
+
+                &.active {
+                    padding         : 5px;
+                    border-radius   : 50%;
+                    background-color: rgb(98, 155, 107);
+
+                }
+
+                img {
+                    height       : 30px;
+                    width        : 30px;
+                    border-radius: 50%;
+
+                }
+            }
+
+        }
+    }
+}
+
+.home-header-banner {
+    background-image   : url('../../assets/header-bg.jpg');
+    background-repeat  : no-repeat;
+    background-size    : cover;
+    background-position: center;
+    height             : 590px;
+    margin-bottom      : 20px;
+    display            : flex;
+    flex-direction     : column;
+
+    .content-up {
+        background-image   : linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
+        height             : 65%;
+        // border          : 1px solid red;
+
+        .title1 {
+            text-align   : center;
+            font-size    : 32px;
+            text-shadow  : 1px 1px 1px #333;
+            color        : white;
+            margin-top   : 50px;
+            margin-bottom: 14px;
+        }
+
+        .title2 {
+            color        : white;
+            text-align   : center;
+            font-size    : 32px;
+            text-shadow  : 1px 1px 1px #333;
+            font-weight  : 600;
+            margin-bottom: 25px;
+        }
+
+        .search {
+            text-align      : center;
+            width           : fit-content;
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+            margin          : 0 auto;
+            padding         : 10px;
+            border-radius   : 24px;
+            background-color: #f7d800;
+
+
+            i {
+                font-size: 20px;
+                margin   : 0 5px;
+            }
+
+            input {
+                outline   : none;
+                border    : none;
+                height    : 30px;
+                width     : 360px;
+                background: transparent;
+
+            }
+        }
+    }
+
+    .content-down {
+        height             : 35%;
+        // border          : 1px solid red;
+        background-image   : linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+        display            : flex;
+        align-items        : flex-end;
+        justify-content    : center;
+
+        .options {
+            display       : flex;
+            text-align    : center;
+            align-items   : center;
+            // padding    : 10px 100px;
+            gap           : 70px;
+
+            .option-child {
+                align-items   : center;
+                text-align    : center;
+                cursor        : pointer;
+                width         : 130px;
+                // border     : 1px solid red;
+                height        : 120px;
+
+                &:hover {
+                    color: #49bce2;
+                }
+
+                .khamchuyenkhoa {
+                    background     : url('../../assets/khamchuyenkhoa.png') center center no-repeat;
+                    background-size: 32px;
+                }
+
+                .khamtuxa {
+                    background     : url('../../assets/khamtuxa.png') center center no-repeat;
+                    background-size: 32px;
+                }
+
+                .khamtongquat {
+                    background     : url('../../assets/khamtongquat.png') center center no-repeat;
+                    background-size: 32px;
+                }
+
+                .xetnghiemyhoc {
+                    background     : url('../../assets/xetnghiemyhoc.png') center center no-repeat;
+                    background-size: 32px;
+                }
+
+                .suckhoetinhthan {
+                    background     : url('../../assets/suckhoetinhthan.png') center center no-repeat;
+                    background-size: 32px;
+                }
+
+                .khamnhakhoa {
+                    background     : url('../../assets/khamnhakhoa.png') center center no-repeat;
+                    background-size: 32px;
+                }
+
+                .icon-child {
+                    box-shadow      : 0px 1px 2px rgba(0, 0, 0, 0.5);
+                    height          : 50px;
+                    width           : 50px;
+                    border-radius   : 50%;
+                    justify-content : center;
+                    background-color: white;
+                    align-items     : center;
+                    margin          : 0 auto;
+
+                }
+
+                .text-child {
+                    font-size  : 20px;
+                    font-weight: 500;
+
+                }
+            }
+
+        }
+    }
+}
