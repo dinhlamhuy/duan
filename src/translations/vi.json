@@ -42,6 +42,7 @@
         },
         "doctor":{
             "manage-schedule" :"Quản lý kế hoạch khám bệnh",
+            "manage-patient" :"Quản lý bệnh nhân khám bệnh",
             "schedule": "Kế hoạch khám bệnh"
 
         }
@@ -66,7 +67,8 @@
  
     "homepage":{
         "outstanding-doctor":"Bác sĩ nổi bật tuần qua",
-        "more-infor":"Xem thêm"
+        "more-infor":"Xem thêm",
+        "specialty-poplular":"Chuyên khoa phổ biến"
     },
     "manage-schedule":{
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
@@ -88,6 +90,20 @@
             "detail":"xem chi tiết",
             "payment":"Người bệnh có thể thanh toán chi phí bằng hình thức:",
             "hide-price":"Ẩn bảng giá"
+        },
+        "booking-modal":{
+            "title":"Thông tin đặt lịch khám bệnh",
+            "fullname":"Họ và tên bệnh nhân (bắt buộc)",
+            "phone":"Số điện thoại",
+            "address":"Địa chỉ liên hệ",
+            "email":"Địa chỉ Email",
+            "birthday":"Ngày sinh",
+            "reason":"Lý do khám",
+            "gender":"Giới tính",
+            "confirm":"Xác nhận",
+            "cancel":"Huỷ",
+            "priceBooking":"Miễn phí đặt lịch"
+
         }
     } ,   
     "admin":{
@@ -102,6 +118,8 @@
             "province":"Chọn tỉnh thành",
             "nameclinic":"Tên phòng khám",
             "addressclinic":"Địa chỉ phòng khám",
+            "speciality":"Chọn chuyên khoa",
+            "selectclinic":"Chọn phòng khám",
             "note":"Ghi chú"
         }
     }

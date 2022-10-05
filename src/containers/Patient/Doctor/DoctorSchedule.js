@@ -8,6 +8,8 @@ import moment from "moment";
 import localization from "moment/locale/vi";
 import { FormattedMessage } from "react-intl";
 import BookingModal from "./Modal/BookingModal.js";
+import { getScheduleDoctorByDateService } from "../../../services/userService";
+
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
@@ -19,39 +21,56 @@ class DoctorSchedule extends Component {
     };
   }
 
-  componentDidMount() {
-    let { language } = this.props;
-    let allDays = this.getArrDays(language);
-
-    this.setState({
-      allDays: allDays,
-    });
+  async componentDidMount() {
+    let allDays = this.getArrDays(this.props.language);
+    console.log("all day ", allDays);
+    let res = await getScheduleDoctorByDateService(
+      this.props.isDoctorId,
+      allDays[0].value
+    );
+    if (res && res.errCode === 0) {
+      this.setState({
+        allAvailableTime: res.data,
+        allDays: allDays,
+      });
+    }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.language !== prevProps.language) {
       let allDays = this.getArrDays(this.props.language);
       this.setState({
         allDays: allDays,
       });
     }
-    if (this.props.scheduleDoctor !== prevProps.scheduleDoctor) {
-      this.setState({ allAvailableTime: this.props.scheduleDoctor });
-    }
-    if (this.props.isDoctorId !== prevProps.isDoctorId) {
+    if (prevProps.isDoctorId !== this.props.isDoctorId) {
       let allDays = this.getArrDays(this.props.language);
-      this.props.fetchScheduleDoctorByDateRedux(
+      let res = await getScheduleDoctorByDateService(
         this.props.isDoctorId,
         allDays[0].value
       );
+      if (res && res.errCode === 0) {
+        this.setState({
+          allAvailableTime: res.data,
+          allDays: allDays,
+        });
+      }
     }
+    // if (prevProps.scheduleDoctor !== this.props.scheduleDoctor) {
+    //   this.setState({ allAvailableTime: this.props.scheduleDoctor });
+    // }
   }
-  handleOnChangeSelect = (event) => {
+  handleOnChangeSelect = async (event) => {
     if (this.props.isDoctorId) {
-      this.props.fetchScheduleDoctorByDateRedux(
+      let res = await getScheduleDoctorByDateService(
         this.props.isDoctorId,
         event.target.value
       );
+      if (res && res.errCode === 0) {
+        this.setState({
+          allAvailableTime: res.data,
+        });
+      }
     }
   };
 
@@ -60,11 +79,11 @@ class DoctorSchedule extends Component {
   }
 
   handleClickScheduleTime = (item) => {
+    console.log("item ", item);
     this.setState({
       isOpenModalBooking: true,
       dataSheduleTimeModal: item,
     });
-    // console.log("th ", item);
   };
   closeBookingModal = () => {
     this.setState({
@@ -110,9 +129,9 @@ class DoctorSchedule extends Component {
   render() {
     let { allDays, allAvailableTime } = this.state;
     let { language } = this.props;
-    // console.log("schedule doctor: ", allAvailableTime);
+
     return (
-      <>
+      <div>
         <div className="doctor-schedule-container">
           <div className="all-schedule">
             <select
@@ -123,7 +142,10 @@ class DoctorSchedule extends Component {
                 allDays.length > 0 &&
                 allDays.map((item, index) => {
                   return (
-                    <option key={index} value={item.value}>
+                    <option
+                      key={index + this.props.isDoctorId}
+                      value={item.value}
+                    >
                       {item.label}
                     </option>
                   );
@@ -172,7 +194,7 @@ class DoctorSchedule extends Component {
           isOpenModalBooking={this.state.isOpenModalBooking}
           closeBookingModal={this.closeBookingModal}
         />
-      </>
+      </div>
     );
   }
 }
@@ -180,16 +202,16 @@ class DoctorSchedule extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    scheduleDoctor: state.admin.scheduleDoctor,
+    // scheduleDoctor: state.admin.scheduleDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchDetailInforDoctorRedux: (id) =>
-      dispatch(actions.fetchDetailInforDoctor(id)),
-    fetchScheduleDoctorByDateRedux: (doctorId, date) =>
-      dispatch(actions.getScheduleDoctorByDate(doctorId, date)),
+    // fetchDetailInforDoctorRedux: (id) =>
+    //   dispatch(actions.fetchDetailInforDoctor(id)),
+    // fetchScheduleDoctorByDateRedux: (doctorId, date) =>
+    //   dispatch(actions.getScheduleDoctorByDate(doctorId, date)),
   };
 };
 

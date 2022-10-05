@@ -6,19 +6,37 @@ import "./DoctorExtraInfor.scss";
 import { LANGUAGES } from "../../../utils";
 import { FormattedMessage } from "react-intl";
 import NumberFormat from "react-number-format";
+import { getExtraInfoDoctorByIdService } from "../../../services/userService";
 class DoctorExtraInfor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isShowDetailInfor: false,
+      allExtraInforDoctor: {},
     };
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+    if (this.props.isDoctorId) {
+      // this.props.getExtraInfoDoctorByIdRedux(this.props.isDoctorId);
+      let res = await getExtraInfoDoctorByIdService(this.props.isDoctorId);
+      if (res && res.errCode === 0) {
+        this.setState({
+          allExtraInforDoctor: res.data,
+        });
+      }
+    }
+  }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.isDoctorId !== prevProps.isDoctorId) {
-      this.props.getExtraInfoDoctorByIdRedux(this.props.isDoctorId);
+      // this.props.getExtraInfoDoctorByIdRedux(this.props.isDoctorId);
+      let res = await getExtraInfoDoctorByIdService(this.props.isDoctorId);
+      if (res && res.errCode === 0) {
+        this.setState({
+          allExtraInforDoctor: res.data,
+        });
+      }
     }
   }
 
@@ -28,8 +46,8 @@ class DoctorExtraInfor extends Component {
     });
   };
   render() {
-    let { language, allExtraInforDoctor } = this.props;
-    let { isShowDetailInfor } = this.state;
+    let { language } = this.props;
+    let { isShowDetailInfor, allExtraInforDoctor } = this.state;
     let pricevi = "",
       priceen = "",
       paymentvi = "",
@@ -48,7 +66,6 @@ class DoctorExtraInfor extends Component {
       }
     }
 
-    // console.log("doctor: ", allExtraInforDoctor);
     return (
       <>
         <div className="doctor-extra-infor-container">
@@ -157,15 +174,15 @@ class DoctorExtraInfor extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    scheduleDoctor: state.admin.scheduleDoctor,
-    allExtraInforDoctor: state.admin.allExtraInforDoctor,
+    // scheduleDoctor: state.admin.scheduleDoctor,
+    // allExtraInforDoctor: state.admin.allExtraInforDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getExtraInfoDoctorByIdRedux: (doctorId) =>
-      dispatch(actions.getExtraInfoDoctorById(doctorId)),
+    // getExtraInfoDoctorByIdRedux: (doctorId) =>
+    //   dispatch(actions.getExtraInfoDoctorById(doctorId)),
   };
 };
 

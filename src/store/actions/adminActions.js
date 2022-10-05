@@ -13,6 +13,9 @@ import {
   getScheduleDoctorByDateService,
   getExtraInfoDoctorByIdService,
   getProfileDoctorByIdService,
+  postPatientBookAppointment,
+  getAllSpecialty,
+  getAllClinic,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 import { dispatch } from "../../redux";
@@ -398,13 +401,19 @@ export const getRequiredDoctorInfor = () => {
       let resPrice = await getAllCodeService("PRICE");
       let resPayment = await getAllCodeService("PAYMENT");
       let resProvince = await getAllCodeService("PROVINCE");
+      let resSpecialty = await getAllSpecialty();
+      let resClinic = await getAllClinic();
       if (
         resPrice &&
         resPrice.errCode === 0 &&
         resPayment &&
         resPayment.errCode === 0 &&
         resProvince &&
-        resProvince.errCode === 0
+        resProvince.errCode === 0 &&
+        resSpecialty &&
+        resSpecialty.errCode === 0 &&
+        resClinic &&
+        resClinic.errCode === 0
       ) {
         dispatch({
           type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS,
@@ -412,6 +421,8 @@ export const getRequiredDoctorInfor = () => {
             resPrice: resPrice.data,
             resPayment: resPayment.data,
             resProvince: resProvince.data,
+            resSpecialty: resSpecialty.data,
+            resClinic: resClinic.data,
           },
         });
       } else {
@@ -466,6 +477,34 @@ export const getProfileDoctorById = (doctorId) => {
     } catch (error) {
       dispatch({
         type: actionTypes.GET_PROFILE_DOCTOR_BY_ID_FAILED,
+      });
+    }
+  };
+};
+
+export const PatientBookAppointment = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await postPatientBookAppointment(data);
+      // console.log("", res);
+      if (res && res.errCode === 0) {
+        toast.success("PATIENT_BOOKING_APPOINTMENT_SUCCESS");
+        dispatch({
+          type: actionTypes.PATIENT_BOOKING_APPOINTMENT_SUCCESS,
+        });
+      } else {
+        console.log("tai sao ", res.errCode);
+        toast.error("PATIENT_BOOKING_APPOINTMENT_FAILED");
+
+        dispatch({
+          type: actionTypes.PATIENT_BOOKING_APPOINTMENT_FAILED,
+        });
+      }
+    } catch (error) {
+      console.log("PATIENT_BOOKING_APPOINTMENT_FAILED", error);
+      toast.error("PATIENT_BOOKING_APPOINTMENT_FAILED!");
+      dispatch({
+        type: actionTypes.PATIENT_BOOKING_APPOINTMENT_FAILED,
       });
     }
   };

@@ -2,18 +2,38 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./MedicalFacility.scss";
 import { FormattedMessage } from "react-intl";
-import MedicalFacilityImg1 from "../../../assets/MedicalFacility/silder-1.jpg";
-import MedicalFacilityImg2 from "../../../assets/MedicalFacility/silder-2.jpg";
-import MedicalFacilityImg3 from "../../../assets/MedicalFacility/silder-3.jpg";
-import MedicalFacilityImg4 from "../../../assets/MedicalFacility/silder-4.jpg";
-import MedicalFacilityImg5 from "../../../assets/MedicalFacility/silder-5.jpg";
-import MedicalFacilityImg6 from "../../../assets/MedicalFacility/silder-6.jpg";
+
 import Slider from "react-slick";
+// import { LANGUAGES } from "../../../utils";
+import { withRouter } from "react-router";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getAllClinic } from "../../../services/userService";
 
 class MedicalFacility extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataClinic: [],
+    };
+  }
+  async componentDidMount() {
+    let res = await getAllClinic();
+    if (res && res.errCode === 0) {
+      this.setState({
+        dataClinic: res.data ? res.data : [],
+      });
+    }
+  }
+
+  handleViewDetailClinic = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-clinic/${item.id}`);
+    }
+  };
   render() {
+    let { language } = this.props;
+    let { dataClinic } = this.state;
     return (
       <>
         <div className="section-medical-facility section-share">
@@ -24,40 +44,20 @@ class MedicalFacility extends Component {
             </div>
             <div className="section-body">
               <Slider {...this.props.settings}>
-                <div className="img-customize">
-                  <img src={MedicalFacilityImg1} />
-                  <div className="text-customize">
-                    Bệnh viên Hữu nghị Việt Đức
-                  </div>
-                </div>
-                <div className="img-customize">
-                  <img src={MedicalFacilityImg2} />
-                  <div className="text-customize">Bệnh viên Chợ Rẫy</div>
-                </div>
-                <div className="img-customize">
-                  <img src={MedicalFacilityImg3} />
-                  <div className="text-customize">
-                    Phòng khám Bệnh viên Đại học Y Dược 1
-                  </div>
-                </div>
-                <div className="img-customize">
-                  <img src={MedicalFacilityImg4} />
-                  <div className="text-customize">
-                    Bệnh viên K - Cơ sở Phan Chu Trinh
-                  </div>
-                </div>
-                <div className="img-customize">
-                  <img src={MedicalFacilityImg5} />
-                  <div className="text-customize">
-                    Bệnh viên Ung bướu Hưng Việt
-                  </div>
-                </div>
-                <div className="img-customize">
-                  <img src={MedicalFacilityImg6} />
-                  <div className="text-customize">
-                    Hệ thống Y tế Thu Cúc TCI
-                  </div>
-                </div>
+                {dataClinic &&
+                  dataClinic.length > 0 &&
+                  dataClinic.map((item, index) => {
+                    return (
+                      <div
+                        className="img-customize"
+                        key={index}
+                        onClick={() => this.handleViewDetailClinic(item)}
+                      >
+                        <img src={item.image} />
+                        <div className="text-customize">{item.name}</div>
+                      </div>
+                    );
+                  })}
               </Slider>
             </div>
           </div>
@@ -78,4 +78,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MedicalFacility)
+);

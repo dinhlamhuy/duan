@@ -1,0 +1,22 @@
+div._loading_overlay_wrapper {
+    position: unset;
+}
+
+.manage-patient-container {
+    padding: 0 15px;
+
+    .m-p-title {
+        margin-top    : 10px;
+        font-size     : 20px;
+        font-weight   : 600;
+        text-transform: uppercase;
+        text-align    : center;
+    }
+
+    .m-p-body {
+        padding: 0 20px;
+
+        .table-m-p {}
+    }
+
+}

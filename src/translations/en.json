@@ -42,6 +42,7 @@
         },
         "doctor":{
             "manage-schedule" :"Manage Doctor's schedule",
+            "manage-patient" :"Manage Doctor's patient",
             "schedule": "Schedule"
         }
     },
@@ -64,7 +65,8 @@
     },
     "homepage":{
         "outstanding-doctor":"Last week's featured doctor",
-        "more-infor":"More Infor"
+        "more-infor":"More Infor",
+        "specialty-poplular":"Poplular specialties"
 
     },
     "manage-schedule":{
@@ -86,6 +88,19 @@
             "detail":"see detail",
             "payment":"The Patients can pay the cost in the form of:",
             "hide-price":"Hide price list"
+        },
+        "booking-modal":{
+            "title":"Information to book a medical appointment",
+            "fullname":"Fullname",
+            "phone":"Phone Number",
+            "address":"Address",
+            "email":"Email",
+            "birthday":"Birthday",
+            "reason":"Reasons for medical examination",
+            "gender":"Gender",
+            "confirm":"Confirm",
+            "cancel":"Cancel",
+            "priceBooking":"Free booking"
         }
     },   
     "admin":{
@@ -100,6 +115,9 @@
             "province":"Province",
             "nameclinic":"Clinics name",
             "addressclinic":"Clinic's address",
+            "speciality":"Speciality",
+            "selectclinic":"Clinic room",
+            
             "note":"Note"
         
         }
